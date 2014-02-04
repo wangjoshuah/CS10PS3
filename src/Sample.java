@@ -24,6 +24,15 @@ public class Sample {
 	 */
 	public double distance(Sample other) {
 		// YOUR CODE HERE
+		//square the difference between each value and add that to the sum
+		// we dont' need to sqrt it at the end because we're comparing the sqrtd values
+		// sqrting won't change greater than or less than relations
+		double sum = 0; //create our local variable we will return
+		for (int i = 0; i < values.length; i++) { //loop through all values for each sample
+			sum += Math.pow((this.values[i] - other.values[i]),2); //square the difference and add it to the sum 
+		}
+		return sum; //return our running total
+		
 	}
 	
 	public String toString() {
