@@ -62,6 +62,13 @@ public class BinaryTree<E> {
 		if (hasRight()) num += right.size();
 		return num;
 	}
+	
+	public int weight() {
+		int num = 0;
+		if (hasLeft()) num += left.weight();
+		if (hasRight()) num += right.weight();
+		return num;
+	}
 
 	/**
 	 * Longest length to a leaf node from here

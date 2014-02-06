@@ -26,7 +26,10 @@ public class Pair implements Comparable<Pair> {
 	public Sample centroid() {
 		double v[] = new double[left.data.values.length];
 		// YOUR CODE HERE
-		return new Sample(v);
+		for (int i = 0; i < v.length; i++) { //for all values in the data set
+			v[i] = left.data.values[i] * left.weight() + right.data.values[i] * right.weight(); //calculate the weighted average
+		}
+		return new Sample(v); //return all weighted averages
 	}
 	
 	public String toString() {
