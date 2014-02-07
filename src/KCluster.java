@@ -48,7 +48,7 @@ public class KCluster {
 	public static ArrayList<KCluster> init(ArrayList<Sample> samples, int k) {
 		ArrayList<KCluster> directory = new ArrayList<KCluster>();
 		
-		
+
 		//Create Kcluster of size k
 		for(int i = 0; i < k; i++) {
 			//create a new cluster
@@ -58,11 +58,11 @@ public class KCluster {
 		
 		//for each sample, assign it to a randomly selected cluster
 		for(int i = 0; i < samples.size(); i++ ) {
-			
-			int randomN = (int) Math.random()*(k-1);
-			KCluster tempmember = directory.get(randomN);
-			tempmember.add(samples.get(i));
+			double randomN = Math.random()*k;
+			System.out.println(randomN);
+			directory.get((int)randomN).add(samples.get(i));
 		}
+		
 		//for each Kcluster, get the centroid
 		for(int i = 0; i < k; i++) {
 			directory.get(i).setPrototype();
@@ -83,12 +83,21 @@ public class KCluster {
 		
 		int ClosestIndex = 0;
 		
-		for(int i = 0; i < samples.size(); i++) { //for each sample in samples
-			ClosestIndex = closestClusterIndex(samples.get(i), oldClusters); //get the index of the cluster with the closest centroid
-			newDirectory.get(ClosestIndex).add(samples.get(i)); //add a given sample to that cluster of newDirectory
+		//Create Kcluster of size k
+		for(int i = 0; i < oldClusters.size(); i++) {
+			//create a new cluster
+			KCluster kc = new KCluster();
+			newDirectory.add(kc);
 		}
 		
-		for(int i = 0; i < newDirectory.size(); i++) { //for each cluster in newDirectory
+		for(int i = 0; i < samples.size(); i++) { //for each sample in samples
+			ClosestIndex = closestClusterIndex(samples.get(i), oldClusters); //get the index of the cluster with the closest centroid
+			KCluster temp = newDirectory.get(ClosestIndex);
+			temp.add(samples.get(i)); //add a given sample to that cluster of newDirectory
+
+		}
+		
+		for(int i = 0; i < oldClusters.size(); i++) { //for each cluster in newDirectory
 			newDirectory.get(i).setPrototype(); //get the centroid for that cluster
 		}
 		
