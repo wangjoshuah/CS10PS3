@@ -28,17 +28,27 @@ public class KCluster {
 			members = null;
 		}
 		else {
+			/*prototype = members.get(0);
 			for(int j = 0; j < members.get(0).values.length; j++) { //for every double in a given sample
-				System.out.println(members.get(0).values.length);
-				prototype = members.get(0);
 				double mean = 0;
 					for(int i = 0; i < members.size(); i++) { //for every Sample in members	
 					mean += members.get(i).values[j]; //add the jth double in each sample together
 				}
-				mean = (int) mean/members.size(); //divide the sum of the jth double in each sample by the number of samples
+				mean = mean/members.size(); //divide the sum of the jth double in each sample by the number of samples
+				System.out.println(mean);
 				prototype.values[j] = mean; //set the mean as the jth value of the prototype
 				//prototype is now equal to the centroid
-			}
+			} */
+			
+
+				   double[] means = new double[members.get(0).values.length];
+				   for (int i = 0; i < members.size(); i++) { //for however many members we have
+				    for (int j = 0; j < members.get(i).values.length; j ++) { //for however many data point each sample has
+				     means[j] += members.get(i).values[j] / members.size(); //take each value and divide it by the number of samples
+				    }
+				   }
+				   prototype = new Sample(means);
+				  
 		}
 	}
 	
@@ -92,15 +102,17 @@ public class KCluster {
 		
 		for(int i = 0; i < samples.size(); i++) { //for each sample in samples
 			ClosestIndex = closestClusterIndex(samples.get(i), oldClusters); //get the index of the cluster with the closest centroid
-			KCluster temp = newDirectory.get(ClosestIndex);
-			temp.add(samples.get(i)); //add a given sample to that cluster of newDirectory
-
+			newDirectory.get(ClosestIndex).add(samples.get(i)); //add a given sample to that cluster of newDirectory
 		}
 		
 		for(int i = 0; i < oldClusters.size(); i++) { //for each cluster in newDirectory
 			newDirectory.get(i).setPrototype(); //get the centroid for that cluster
 		}
+		System.out.println(newDirectory.get(0).getPrototype().valuesString());
+		System.out.println(newDirectory.get(1).getPrototype().valuesString());
+		System.out.println(newDirectory.get(2).getPrototype().valuesString());
 		
+		System.out.println("hi");
 		return newDirectory;
 	}
 	
@@ -111,17 +123,16 @@ public class KCluster {
 	public static int closestClusterIndex(Sample s, ArrayList<KCluster> directory) {
 		// YOUR CODE HERE
 		double closestDistance = s.distance(directory.get(0).getPrototype()); //initialize ClosestDistance by setting it to the distance of the centroid in the first cluster of the directory
-		int index = 1;
+		int index = 0;
 		for(int i = 0; i < directory.size(); i++) { //for each kcluster in the directory
-			System.out.println(closestDistance + "a");
-			System.out.println(s.distance(directory.get(1).getPrototype()) + "b");
-			System.out.println(s.distance(directory.get(2).getPrototype()) + "c");
 			if( closestDistance > s.distance(directory.get(i).getPrototype()) ) { //check if the prototype in Cluster number i has the shortest distance to s
 				index = i; //if so, index becomes the index of that cluster
 				closestDistance = s.distance(directory.get(i).getPrototype()); //keep the new closest distnace
-
+				System.out.println("inside" + i);
 			}
 		}
+		System.out.println("index" + index);
+		
 		return index;
 	}
 	
