@@ -27,14 +27,18 @@ public class KCluster {
 		if(members.isEmpty()) {
 			members = null;
 		}
-		else { //if we have members
-			double[] means = new double[members.get(0).values.length];
-			for (int i = 0; i < members.size(); i++) { //for however many members we have
-				for (int j = 0; j < members.get(i).values.length; j ++) { //for however many data point each sample has
-					means[j] += members.get(i).values[j] / members.size(); //take each value and divide it by the number of samples
+		else {
+			for(int j = 0; j < members.get(0).values.length; j++) { //for every double in a given sample
+				System.out.println(members.get(0).values.length);
+				prototype = members.get(0);
+				double mean = 0;
+					for(int i = 0; i < members.size(); i++) { //for every Sample in members	
+					mean += members.get(i).values[j]; //add the jth double in each sample together
 				}
+				mean = (int) mean/members.size(); //divide the sum of the jth double in each sample by the number of samples
+				prototype.values[j] = mean; //set the mean as the jth value of the prototype
+				//prototype is now equal to the centroid
 			}
-			prototype = new Sample(means);
 		}
 	}
 	
