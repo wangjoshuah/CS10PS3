@@ -110,11 +110,12 @@ public class KCluster {
 	 */
 	public static int closestClusterIndex(Sample s, ArrayList<KCluster> directory) {
 		// YOUR CODE HERE
-		double ClosestDistance = s.distance(directory.get(0).getPrototype()); //initialize ClosestDistance by setting it to the distance of the centroid in the first cluster of the directory
+		double closestDistance = s.distance(directory.get(0).getPrototype()); //initialize ClosestDistance by setting it to the distance of the centroid in the first cluster of the directory
 		int index = 0;
 		for(int i = 0; i < directory.size(); i++) { //for each kcluster in the directory
-			if( ClosestDistance >= s.distance(directory.get(i).getPrototype()) ) { //check if the prototype in Cluster number i has the shortest distance to s
+			if( closestDistance > s.distance(directory.get(i).getPrototype()) ) { //check if the prototype in Cluster number i has the shortest distance to s
 				index = i; //if so, index becomes the index of that cluster
+				closestDistance = s.distance(directory.get(i).getPrototype()); //keep the new closest distnace
 			}
 		}
 		return index;
