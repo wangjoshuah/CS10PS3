@@ -108,10 +108,6 @@ public class KCluster {
 		for(int i = 0; i < oldClusters.size(); i++) { //for each cluster in newDirectory
 			newDirectory.get(i).setPrototype(); //get the centroid for that cluster
 		}
-		System.out.println(newDirectory.get(0).getPrototype().valuesString());
-		System.out.println(newDirectory.get(1).getPrototype().valuesString());
-		System.out.println(newDirectory.get(2).getPrototype().valuesString());
-		
 		System.out.println("hi");
 		return newDirectory;
 	}
