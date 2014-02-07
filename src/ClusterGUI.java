@@ -135,10 +135,10 @@ public class ClusterGUI extends DrawingFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				// Small test case
-				new ClusterGUI("inputs/simple.csv", 400, 200, 3);
+//				new ClusterGUI("inputs/simple.csv", 400, 200, 3);
 				
 				// Larger test case
-//				new ClusterGUI("inputs/cancer.csv", 1000, 600, 2);
+				new ClusterGUI("inputs/cancer.csv", 1000, 600, 2);
 			}
 		});
 	}
