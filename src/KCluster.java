@@ -28,9 +28,10 @@ public class KCluster {
 			members = null;
 		}
 		else {
-			prototype = members.get(0);
 			for(int j = 0; j < members.get(0).values.length; j++) { //for every double in a given sample
-				int mean = 0;
+				System.out.println(members.get(0).values.length);
+				prototype = members.get(0);
+				double mean = 0;
 					for(int i = 0; i < members.size(); i++) { //for every Sample in members	
 					mean += members.get(i).values[j]; //add the jth double in each sample together
 				}
@@ -59,7 +60,6 @@ public class KCluster {
 		//for each sample, assign it to a randomly selected cluster
 		for(int i = 0; i < samples.size(); i++ ) {
 			double randomN = Math.random()*k;
-			System.out.println(randomN);
 			directory.get((int)randomN).add(samples.get(i));
 		}
 		
@@ -111,11 +111,15 @@ public class KCluster {
 	public static int closestClusterIndex(Sample s, ArrayList<KCluster> directory) {
 		// YOUR CODE HERE
 		double closestDistance = s.distance(directory.get(0).getPrototype()); //initialize ClosestDistance by setting it to the distance of the centroid in the first cluster of the directory
-		int index = 0;
+		int index = 1;
 		for(int i = 0; i < directory.size(); i++) { //for each kcluster in the directory
+			System.out.println(closestDistance + "a");
+			System.out.println(s.distance(directory.get(1).getPrototype()) + "b");
+			System.out.println(s.distance(directory.get(2).getPrototype()) + "c");
 			if( closestDistance > s.distance(directory.get(i).getPrototype()) ) { //check if the prototype in Cluster number i has the shortest distance to s
 				index = i; //if so, index becomes the index of that cluster
 				closestDistance = s.distance(directory.get(i).getPrototype()); //keep the new closest distnace
+
 			}
 		}
 		return index;
